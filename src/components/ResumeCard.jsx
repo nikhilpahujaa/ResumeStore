@@ -8,6 +8,7 @@ const ResumeCard = ({ resume, onPreview }) => {
         <img 
           src={resume.previewImageUrl} 
           alt={resume.title}
+          loading="lazy"
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-[2px]">
