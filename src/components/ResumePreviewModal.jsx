@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { X, Download, ExternalLink } from 'lucide-react';
+import { handleDownload } from '../utils/download';
 
 const ResumePreviewModal = ({ resume, onClose }) => {
   if (!resume) return null;
@@ -11,6 +12,10 @@ const ResumePreviewModal = ({ resume, onClose }) => {
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onClose]);
+
+  const onDownload = () => {
+    handleDownload(resume.pdfUrl, resume.downloadName);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6" onClick={onClose}>
@@ -24,14 +29,13 @@ const ResumePreviewModal = ({ resume, onClose }) => {
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white z-10">
           <h2 className="text-xl font-bold text-gray-800">{resume.title}</h2>
           <div className="flex items-center gap-2">
-            <a
-              href={resume.pdfUrl}
-              download="Nikhil's_resume.pdf"
+            <button
+              onClick={onDownload}
               className="hidden sm:flex items-center gap-2 px-4 py-2 bg-black text-white hover:bg-gray-800 rounded-lg transition-colors text-sm font-medium"
             >
               <Download className="w-4 h-4" />
               Download PDF
-            </a>
+            </button>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-500 hover:text-gray-800"
@@ -54,14 +58,13 @@ const ResumePreviewModal = ({ resume, onClose }) => {
 
         {/* Mobile Footer */}
         <div className="sm:hidden p-4 border-t border-gray-100 bg-white">
-          <a
-            href={resume.pdfUrl}
-            download="Nikhil's_resume.pdf"
+          <button
+            onClick={onDownload}
             className="flex w-full items-center justify-center gap-2 px-4 py-3 bg-black text-white hover:bg-gray-800 rounded-xl transition-colors font-medium shadow-lg"
           >
             <Download className="w-5 h-5" />
             Download PDF
-          </a>
+          </button>
         </div>
       </div>
     </div>

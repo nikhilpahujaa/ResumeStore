@@ -1,7 +1,13 @@
 import React from 'react';
 import { Download, Eye } from 'lucide-react';
+import { handleDownload } from '../utils/download';
 
 const ResumeCard = ({ resume, onPreview }) => {
+  const onDownload = (e) => {
+    e.stopPropagation();
+    handleDownload(resume.pdfUrl, resume.downloadName);
+  };
+
   return (
     <div className="bg-white/80 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group">
       <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
@@ -19,15 +25,13 @@ const ResumeCard = ({ resume, onPreview }) => {
           >
             <Eye className="w-6 h-6" />
           </button>
-          <a
-            href={resume.pdfUrl}
-            download="Nikhil's_resume.pdf"
+          <button
+            onClick={onDownload}
             className="p-3 bg-white/10 text-white rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm border border-white/30 transform hover:scale-110"
             title="Download PDF"
-            onClick={(e) => e.stopPropagation()}
           >
             <Download className="w-6 h-6" />
-          </a>
+          </button>
         </div>
       </div>
       
@@ -45,14 +49,13 @@ const ResumeCard = ({ resume, onPreview }) => {
             <Eye className="w-4 h-4" />
             Preview
           </button>
-          <a
-            href={resume.pdfUrl}
-            download="Nikhil's_resume.pdf"
+          <button
+            onClick={onDownload}
             className="flex items-center justify-center gap-2 px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-xl font-medium transition-colors text-sm shadow-lg hover:shadow-xl"
           >
             <Download className="w-4 h-4" />
             Download
-          </a>
+          </button>
         </div>
       </div>
     </div>
